@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.net.ServerSocket;
 import java.util.Date;
+import java.util.Scanner;
 import java.util.Vector;
 
 public class Main {
@@ -18,39 +19,43 @@ public class Main {
                 @Override
                 public void run() {
                     try{
-                        PrintStream outputStream = new PrintStream(socket.getOutputStream());
-                        outputStream.println("1. Get 2. Set 3. Add 4. Remove 5. Print 6. Goodbye");
-                        DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-                        int index;
-                        int value;
-                        int option = inputStream.readInt();
-                        switch (option){
-                            case 1:
-                                outputStream.println("Insert index");
-                                index = inputStream.readInt();
-                                outputStream.println(numbers.get(index));
-                                break;
-                            case 2:
-                                outputStream.println("Insert index and value");
-                                index = inputStream.readInt();
-                                value = inputStream.readInt();
-                                numbers.set(index, value);
-                                break;
-                            case 3:
-                                outputStream.println("Insert value");
-                                value = inputStream.readInt();
-                                numbers.add(value);
-                                break;
-                            case 4:
-                                outputStream.println("Insert index");
-                                index = inputStream.readInt();
-                                numbers.remove(index);
-                                break;
-                            case 5:
-                                outputStream.println(numbers.toString());
-                                break;
-                            case 6:
-                                break;
+                        int option = 0;
+                        while (option!=6) {
+                            PrintStream outputStream = new PrintStream(socket.getOutputStream());
+                            outputStream.println("1. Get 2. Set 3. Add 4. Remove 5. Print 6. Goodbye");
+                            Scanner inputS = new Scanner(socket.getInputStream());
+                            int index;
+                            int value;
+                            option = inputS.nextInt();
+                            switch (option) {
+                                case 1:
+                                    outputStream.println("Insert index");
+                                    index = inputS.nextInt();
+                                    outputStream.println(numbers.get(index));
+                                    break;
+                                case 2:
+                                    outputStream.println("Insert index and value");
+                                    index = inputS.nextInt();
+                                    value = inputS.nextInt();
+                                    numbers.set(index, value);
+                                    break;
+                                case 3:
+                                    outputStream.println("Insert value");
+                                    value = inputS.nextInt();
+                                    numbers.add(value);
+                                    break;
+                                case 4:
+                                    outputStream.println("Insert index");
+                                    index = inputS.nextInt();
+                                    numbers.remove(index);
+                                    break;
+                                case 5:
+                                    outputStream.println(numbers.toString());
+                                    break;
+                                case 6:
+                                    socket.close();
+                                    break;
+                            }
                         }
                     }
                     catch (IOException e){
