@@ -13,12 +13,13 @@ public class Main {
         PrintStream toServerOS;
         Scanner s = new Scanner(System.in);
         try{
+                int input = 0;
                 socket = new Socket("localhost", 7000);
                 fromServerIS = new Scanner(socket.getInputStream());
                 toServerOS = new PrintStream(socket.getOutputStream());
-                while (true) {
+                while (input!=6) {
                     System.out.println(fromServerIS.nextLine());
-                    int input = s.nextInt();
+                    input = s.nextInt();
                     toServerOS.println(input);
                     switch (input) {
                         case 1:
@@ -48,6 +49,7 @@ public class Main {
                             System.out.println(fromServerIS.nextLine());
                             break;
                         case 6:
+                            System.out.println(fromServerIS.nextLine());
                             socket.close();
                             break;
                     }

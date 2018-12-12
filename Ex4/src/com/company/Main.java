@@ -31,7 +31,10 @@ public class Main {
                                 case 1:
                                     outputStream.println("Insert index");
                                     index = inputS.nextInt();
-                                    outputStream.println(numbers.get(index));
+                                    if ((numbers.size()<index))
+                                        outputStream.println("Vector too short");
+                                    else
+                                        outputStream.println(numbers.get(index));
                                     break;
                                 case 2:
                                     outputStream.println("Insert index and value");
@@ -47,13 +50,16 @@ public class Main {
                                 case 4:
                                     outputStream.println("Insert index");
                                     index = inputS.nextInt();
-                                    numbers.remove(index);
+                                    if ((numbers.size()<index))
+                                        outputStream.println("Vector too short");
+                                    else
+                                        numbers.remove(index);
                                     break;
                                 case 5:
                                     outputStream.println(numbers.toString());
                                     break;
                                 case 6:
-                                    socket.close();
+                                    outputStream.println("Connection closed");
                                     break;
                             }
                         }
